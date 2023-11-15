@@ -12,8 +12,7 @@ export default class ProjectItem extends Component {
             <div className="col-lg-6 col-md-4 col-8">
               <h3>Spring / React Project</h3>
               <p>
-                Project to create a Kanban Board with Spring Boot and
-                React
+                Project to create a Board with Spring Boot and React
               </p>
             </div>
             <div className="col-md-4 d-none d-lg-block">
