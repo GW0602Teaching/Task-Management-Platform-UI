@@ -5,7 +5,8 @@ import { createProject } from '../../actions/projectActions';
 import { useNavigate } from 'react-router-dom';
 
 function AddProject(props) {
-  const { createProject } = props;
+  const { createProject, errors } = props;
+  console.log(errors);
 
   const [projectName, setProjectName] = useState('');
   const [projectId, setProjectId] = useState('');
@@ -41,7 +42,7 @@ function AddProject(props) {
 
     try {
       createProject(reqObj);
-      navigator('/dashboard');
+      // navigator('/dashboard');
     } catch {
       console.error('error');
     }
@@ -68,6 +69,7 @@ function AddProject(props) {
                     onChange(e.target.name, e.target.value)
                   }
                 />
+                {<p>{errors.projectName}</p> || ''}
               </div>
               <div className="mb-3">
                 <input
@@ -80,6 +82,7 @@ function AddProject(props) {
                     onChange(e.target.name, e.target.value)
                   }
                 />
+                {<p>{errors.projectId}</p> || ''}
               </div>
               <div className="mb-3">
                 <textarea
@@ -91,6 +94,7 @@ function AddProject(props) {
                     onChange(e.target.name, e.target.value)
                   }
                 ></textarea>
+                {<p>{errors.description}</p> || ''}
               </div>
               <h6>Start Date</h6>
               <div className="mb-3">
@@ -131,6 +135,13 @@ function AddProject(props) {
 
 AddProject.propTypes = {
   createProject: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired,
 };
 
-export default connect(null, { createProject })(AddProject);
+const mapStateToProps = (state) => ({
+  errors: state.errors,
+});
+
+export default connect(mapStateToProps, { createProject })(
+  AddProject
+);
