@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createProject } from '../../actions/projectActions';
 import { useNavigate } from 'react-router-dom';
+import classnames from 'classnames';
 
 function AddProject(props) {
   const { createProject, errors } = props;
@@ -61,7 +62,10 @@ function AddProject(props) {
               <div className="mb-3">
                 <input
                   type="text"
-                  className="form-control form-control-lg "
+                  className={classnames(
+                    'form-control form-control-lg',
+                    { 'is-invalid': errors.projectName }
+                  )}
                   placeholder="Project Name"
                   name="projectName"
                   value={projectName}
@@ -69,12 +73,19 @@ function AddProject(props) {
                     onChange(e.target.name, e.target.value)
                   }
                 />
-                {<p>{errors.projectName}</p> || ''}
+                {(
+                  <div className="invalid-feedback">
+                    {errors.projectName}
+                  </div>
+                ) || ''}
               </div>
               <div className="mb-3">
                 <input
                   type="text"
-                  className="form-control form-control-lg"
+                  className={classnames(
+                    'form-control form-control-lg',
+                    { 'is-invalid': errors.projectName }
+                  )}
                   placeholder="Unique Project ID"
                   name="projectId"
                   value={projectId}
@@ -82,11 +93,18 @@ function AddProject(props) {
                     onChange(e.target.name, e.target.value)
                   }
                 />
-                {<p>{errors.projectId}</p> || ''}
+                {(
+                  <div className="invalid-feedback">
+                    {errors.projectId}
+                  </div>
+                ) || ''}
               </div>
               <div className="mb-3">
                 <textarea
-                  className="form-control form-control-lg"
+                  className={classnames(
+                    'form-control form-control-lg',
+                    { 'is-invalid': errors.projectName }
+                  )}
                   placeholder="Project Description"
                   name="description"
                   value={description}
@@ -94,7 +112,11 @@ function AddProject(props) {
                     onChange(e.target.name, e.target.value)
                   }
                 ></textarea>
-                {<p>{errors.description}</p> || ''}
+                {(
+                  <div className="invalid-feedback">
+                    {errors.description}
+                  </div>
+                ) || ''}
               </div>
               <h6>Start Date</h6>
               <div className="mb-3">
