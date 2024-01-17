@@ -11,7 +11,7 @@ export const createProject = (project) => async (dispatch) => {
     console.log('error', err);
     dispatch({
       type: GET_ERRORS,
-      payload: err?.response?.data,
+      payload: err?.response?.data || err?.config?.data,
     });
   }
 };
