@@ -19,13 +19,13 @@ export default class ProjectItem extends Component {
             </div>
             <div className="col-md-4 d-none d-lg-block">
               <ul className="list-group">
-                <a href="#">
+                <Link to={`/projectBoard/${project.projectId}`}>
                   <li className="list-group-item board">
                     <i className="fa fa-flag-checkered pr-1">
                       Project Board
                     </i>
                   </li>
-                </a>
+                </Link>
                 <Link to={`/updateProject/${project.projectId}`}>
                   <li className="list-group-item update">
                     <i className="fa fa-edit pr-1">
