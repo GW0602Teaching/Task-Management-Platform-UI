@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createProject } from '../../actions/projectActions';
@@ -7,7 +7,6 @@ import classnames from 'classnames';
 
 function AddProject(props) {
   const { createProject, errors } = props;
-  console.log(errors);
 
   const [projectName, setProjectName] = useState('');
   const [projectId, setProjectId] = useState('');

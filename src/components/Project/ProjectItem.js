@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export default class ProjectItem extends Component {
   render() {
     const { project } = this.props;
-    console.log(project);
     return (
       <div className="container">
         <div className="card card-body bg-light mb-3">
@@ -22,23 +22,20 @@ export default class ProjectItem extends Component {
                 <a href="#">
                   <li className="list-group-item board">
                     <i className="fa fa-flag-checkered pr-1">
-                      {' '}
                       Project Board
                     </i>
                   </li>
                 </a>
-                <a href="#">
+                <Link to={`/updateProject/${project.projectId}`}>
                   <li className="list-group-item update">
                     <i className="fa fa-edit pr-1">
-                      {' '}
                       Update Project Info
                     </i>
                   </li>
-                </a>
+                </Link>
                 <a href="">
                   <li className="list-group-item delete">
                     <i className="fa fa-minus-circle pr-1">
-                      {' '}
                       Delete Project
                     </i>
                   </li>

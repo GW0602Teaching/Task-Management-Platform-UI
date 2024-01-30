@@ -1,6 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 
-import { GET_PROJECTS } from '../actions/types';
+import { GET_PROJECT, GET_PROJECTS } from '../actions/types';
 
 const initState = {
   projectList: [],
@@ -13,6 +13,11 @@ export default function (state = initState, action) {
       return {
         ...state,
         projectList: action.payload,
+      };
+    case GET_PROJECT:
+      return {
+        ...state,
+        project: action.payload, 
       };
     default:
       return state;
