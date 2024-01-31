@@ -1,9 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
+import classnames from 'classnames';
+import { addTask } from '../../../actions/backlogActions';
+import { useNavigate } from 'react-router-dom';
 
-const AddTask = () => {
+const AddTask = (props) => {
   const params = useParams();
   const { id = '' } = params;
+
+  const [summary, setSummary] = useState('');
+  const [acceptanceCriteria, setAcceptanceCriteria] = useState('');
+  const [status, setStatus] = useState('');
+  const [priority, setPriority] = useState(0);
+  const [dueDate, setDueDate] = useState('');
+  const [errors, setErrors] = useState({});
+
+  const navigator = useNavigate();
+
+  function onChange(e) {
+    switch (e.target.name) {
+      case 'summary':
+        setSummary(e.target.value);
+        break;
+      case 'acceptanceCriteria':
+        setAcceptanceCriteria(e.target.value);
+        break;
+      case 'status':
+        setStatus(e.target.value);
+        break;
+      case 'priority':
+        setPriority(e.target.value);
+        break;
+      case 'dueDate':
+        setDueDate(e.target.value);
+        break;
+      default:
+        setErrors(e.target.value);
+        break;
+    }
+  }
+
+  async function onSubmit(e) {
+    e.preventDefault();
+
+    const newTask = {
+      summary,
+      acceptanceCriteria,
+      status,
+      priority,
+      dueDate,
+    };
+
+    const { addTask } = props;
+    await addTask(id, newTask);
+    navigator('/dashboard');
+  }
 
   return (
     <div className="add-PBI">
@@ -22,13 +75,15 @@ const AddTask = () => {
             <p className="lead text-center">
               Project Name + Project Code
             </p>
-            <form>
+            <form onSubmit={onSubmit}>
               <div className="m-3">
                 <input
                   type="text"
                   className="form-control form-control-lg"
                   name="summary"
                   placeholder="Project Task summary"
+                  value={summary}
+                  onChange={onChange}
                 />
               </div>
               <div className="m-3">
@@ -36,6 +91,8 @@ const AddTask = () => {
                   className="form-control form-control-lg"
                   placeholder="Acceptance Criteria"
                   name="acceptanceCriteria"
+                  value={acceptanceCriteria}
+                  onChange={onChange}
                 />
               </div>
               <h6>Due Date</h6>
@@ -44,12 +101,16 @@ const AddTask = () => {
                   type="date"
                   className="form-control form-control-lg"
                   name="dueDate"
+                  value={dueDate}
+                  onChange={onChange}
                 />
               </div>
               <div className="m-3">
                 <select
                   className="form-control form-control-lg"
                   name="priority"
+                  value={priority}
+                  onChange={onChange}
                 >
                   <option value={0}>Select Priority</option>
                   <option value={1}>High</option>
@@ -62,6 +123,8 @@ const AddTask = () => {
                 <select
                   className="form-control form-control-lg"
                   name="status"
+                  value={status}
+                  onChange={onChange}
                 >
                   <option value="">Select Status</option>
                   <option value="TO_DO">TO DO</option>
@@ -82,4 +145,8 @@ const AddTask = () => {
   );
 };
 
-export default AddTask;
+AddTask.propTypes = {
+  addTask: PropTypes.func.isRequired,
+};
+
+export default connect(null, { addTask })(AddTask);

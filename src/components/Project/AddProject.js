@@ -29,7 +29,7 @@ function AddProject(props) {
     }
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     const reqObj = {
@@ -41,8 +41,8 @@ function AddProject(props) {
     };
 
     try {
-      createProject(reqObj);
-      // navigator('/dashboard');
+      await createProject(reqObj);
+      navigator('/dashboard');
     } catch {
       console.error('error');
     }
