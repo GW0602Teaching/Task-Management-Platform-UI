@@ -59,7 +59,6 @@ const AddTask = (props) => {
   }
 
   const { errors } = props;
-  console.log(errors);
 
   return (
     <div className="add-PBI">

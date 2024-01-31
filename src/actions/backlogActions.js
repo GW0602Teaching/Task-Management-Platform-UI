@@ -13,10 +13,6 @@ export const addTask = (projectId, task) => async (dispatch) => {
       });
   } catch (err) {
     console.log('error', err);
-    dispatch({
-      type: GET_ERRORS,
-      payload: err?.response?.data || err?.config?.data,
-    });
   }
 };
 
