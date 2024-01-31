@@ -9,6 +9,9 @@ import store from './store';
 import UpdateProject from './components/Project/UpdateProject';
 import ProjectBoard from './components/ProjectBoard/ProjectBoard';
 import AddTask from './components/ProjectBoard/Tasks/AddTask';
+import Landing from './components/Layout/Landing';
+import Register from './components/UserManagement/Register';
+import Login from './components/UserManagement/Login';
 
 function App() {
   return (
@@ -17,7 +20,12 @@ function App() {
         <div className="App">
           <Header />
           <Routes>
-            <Route exact path="/" element={<Dashboard />} />
+            {/* Public Routes */}
+            <Route exact path="/" element={<Landing />} />
+            <Route exact path="/register" element={<Register />} />
+            <Route exact path="/login" element={<Login />} />
+
+            {/* Private Routes */}
             <Route exact path="/dashboard" element={<Dashboard />} />
             <Route
               exact
