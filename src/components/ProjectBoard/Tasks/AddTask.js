@@ -15,7 +15,7 @@ const AddTask = (props) => {
   const [status, setStatus] = useState('');
   const [priority, setPriority] = useState(0);
   const [dueDate, setDueDate] = useState('');
-  const [errors, setErrors] = useState({});
+  // const [errors, setErrors] = useState({});
 
   const navigator = useNavigate();
 
@@ -37,7 +37,7 @@ const AddTask = (props) => {
         setDueDate(e.target.value);
         break;
       default:
-        setErrors(e.target.value);
+        // setErrors(e.target.value);
         break;
     }
   }
@@ -55,8 +55,11 @@ const AddTask = (props) => {
 
     const { addTask } = props;
     await addTask(id, newTask);
-    navigator('/dashboard');
+    // navigator(`/projectBoard/${id}`)
   }
+
+  const { errors } = props;
+  console.log(errors);
 
   return (
     <div className="add-PBI">
@@ -79,12 +82,20 @@ const AddTask = (props) => {
               <div className="m-3">
                 <input
                   type="text"
-                  className="form-control form-control-lg"
+                  className={classnames(
+                    'form-control form-control-lg',
+                    { 'is-invalid': errors.summary }
+                  )}
                   name="summary"
                   placeholder="Project Task summary"
                   value={summary}
                   onChange={onChange}
                 />
+                {(
+                  <div className="invalid-feedback">
+                    {errors.summary}
+                  </div>
+                ) || ''}
               </div>
               <div className="m-3">
                 <textarea
@@ -147,6 +158,11 @@ const AddTask = (props) => {
 
 AddTask.propTypes = {
   addTask: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired,
 };
 
-export default connect(null, { addTask })(AddTask);
+const mapStateToProps = (state) => ({
+  errors: state.errors,
+});
+
+export default connect(mapStateToProps, { addTask })(AddTask);

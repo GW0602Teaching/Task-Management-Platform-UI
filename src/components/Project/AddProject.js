@@ -42,7 +42,7 @@ function AddProject(props) {
 
     try {
       await createProject(reqObj);
-      navigator('/dashboard');
+      // navigator('/dashboard');
     } catch {
       console.error('error');
     }
